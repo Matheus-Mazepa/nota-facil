@@ -1,25 +1,23 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import BootstrapVue from 'bootstrap-vue';
+import Store from './store';
+import Vuex from 'vuex';
 
 require('./bootstrap');
-
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+var Lang = require('vue-lang');
+var locales = {
+    "en": require("./locale/en.json"),
+    "pt-br": require("./locale/pt-br.json")
+};
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.use(Vuex);
+Vue.use(Lang, {lang: 'pt-br', locales: locales});
+Vue.use(BootstrapVue);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('navbar', require('./components/Navbar.vue').default);
+
+const store = new Vuex.Store(Store);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +27,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    store,
 });

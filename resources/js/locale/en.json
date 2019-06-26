@@ -1,0 +1,12 @@
+{
+  "label": {
+    "user": "User",
+    "profile": "Profile",
+    "exit": "Exit",
+    "lang": "Language",
+    "sing_in": "Sing in",
+    "username": "Username",
+    "password": "Password",
+    "search": "Search"
+  }
+}
