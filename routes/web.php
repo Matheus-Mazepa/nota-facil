@@ -14,3 +14,6 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/emitir-notas', 'TaxCouponController@index')->name('newTaxCoupon');
+Route::get('/products/getAll', 'TaxCouponController@getAll');
+Route::post('/products/tax-coupon', 'TaxCouponController@taxCoupon');

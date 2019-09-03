@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.24",
-        "npm": "^6.9.0",
+        "npm": "^6.9.2",
         "vue-lang": "^0.2.5",
         "vuex": "^3.1.1"
     }

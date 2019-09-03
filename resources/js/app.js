@@ -16,6 +16,8 @@ Vue.use(Lang, {lang: 'pt-br', locales: locales});
 Vue.use(BootstrapVue);
 
 Vue.component('navbar', require('./components/Navbar.vue').default);
+Vue.component('products', require('./components/Products.vue').default);
+Vue.component('resume-tax', require('./components/Resume-tax.vue').default);
 
 const store = new Vuex.Store(Store);
 

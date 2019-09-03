@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,45 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        $client = new Client();
+
+        $response = $client->post(
+            'https://api.modulapro.com.br:3019/auth/',
+            [
+                'json'=> [
+                    'username'=> 'kaskinha',
+                    'password'=> '#123!@',
+                ],
+            ]
+        );
+
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            $data = json_decode((string)$response->getBody());
+            if ($response->getStatusCode() == 200) {
+                $user = current_user();
+                $user->token_modula_id = data_get($data, 'data.token');
+                $user->save();
+            }
+            return $this->sendLoginResponse($request);
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
 
     /**
      * Create a new controller instance.

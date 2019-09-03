@@ -9,6 +9,14 @@ export const login = function(email, password) {
   });
 };
 
+
+export const logout = function() {
+  return HTTP.post('/logout').then((response) => {
+    return response.data;
+  });
+};
+
 export default {
   login,
+  logout,
 }
